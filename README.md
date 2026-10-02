@@ -1,8 +1,23 @@
-# dot-local-workspace-fix
+# ChatGPT dot 本地任务失败：DesktopTaskWorkspaceUnavailableError
 
 Windows 上 ChatGPT dot 显示电脑已连接、已授权，但创建本地任务时报 `DesktopTaskWorkspaceUnavailableError` 的一种已验证修复方法。
 
 [English](README.en.md) · [脱敏复现记录](docs/verified-case.md) · [MIT License](LICENSE)
+
+## 对照报错原文
+
+如果搜索下面这段报错找到了本仓库，先确认你的故障也发生在**准备本地任务工作区**阶段：电脑显示已连接、已绑定、已授权，但没有返回新任务 ID，尚未开始读取文件。
+
+```text
+DesktopTaskWorkspaceUnavailableError: The desktop could not prepare a task workspace. Update or reconnect it before creating the task.
+
+error_code: CONFLICT
+error_data.type: desktop_task_workspace_unavailable
+```
+
+中文常见描述：**dot 无法连接本地电脑、无法创建任务工作区、无法准备任务工作区、电脑已连接但本地任务无法启动**。
+
+本仓库记录的是这一报错中由特定 Windows WDAC / App Control 策略引起的一种已验证原因。相同报错不一定具有相同原因；请先按下文检查 PowerShell `ConstrainedLanguage` 和策略指纹。
 
 ## 这份方案解决什么
 

@@ -1,8 +1,23 @@
-# dot-local-workspace-fix
+# ChatGPT dot local-task failure: DesktopTaskWorkspaceUnavailableError
 
 A documented Windows fix for **one verified cause** of ChatGPT dot local-task creation failing with `DesktopTaskWorkspaceUnavailableError`, despite the computer appearing connected and authorized.
 
 [中文](README.md) · [Redacted case report](docs/verified-case.md) · [MIT License](LICENSE)
+
+## Match the exact error
+
+The failure documented here occurs while **preparing a local task workspace**: the computer appears connected, attached, and authorized, but no new task ID is returned and file reading has not started.
+
+```text
+DesktopTaskWorkspaceUnavailableError: The desktop could not prepare a task workspace. Update or reconnect it before creating the task.
+
+error_code: CONFLICT
+error_data.type: desktop_task_workspace_unavailable
+```
+
+Related symptom descriptions: **ChatGPT dot cannot connect to a local computer**, **computer connected but local task will not start**, and **unable to prepare a desktop task workspace**.
+
+This repository documents one verified Windows WDAC / App Control cause of this error. Check PowerShell `ConstrainedLanguage` and the policy fingerprint below before considering this repair; the same error can have other causes.
 
 ## Observed cause and result
 
