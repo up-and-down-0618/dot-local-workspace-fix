@@ -7,16 +7,21 @@ permissions:
 jobs:
   policy-rules:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        shell: [powershell, pwsh]
     steps:
       - uses: actions/checkout@v4
-      - name: Test refusal cases and parse repair script
-        shell: ${{ matrix.shell }}
+      - name: Test refusal cases and parser with Windows PowerShell 5.1
+        shell: powershell
         run: ./tests/Test-PolicyRules.ps1
-      - name: Test rules in a constrained child session
-        shell: ${{ matrix.shell }}
+      - name: Test refusal cases and parser with PowerShell 7
+        shell: pwsh
+        run: ./tests/Test-PolicyRules.ps1
+      - name: Test constrained rules with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $ExecutionContext.SessionState.LanguageMode = 'ConstrainedLanguage'
+          ./tests/Test-PolicyRules.ps1 -SkipParserCheck
+      - name: Test constrained rules with PowerShell 7
+        shell: pwsh
         run: |
           $ExecutionContext.SessionState.LanguageMode = 'ConstrainedLanguage'
           ./tests/Test-PolicyRules.ps1 -SkipParserCheck
