@@ -1,0 +1,14 @@
+# Local evidence may contain machine information. Never publish it.
+backups/
+evidence/
+diagnostics/
+*.cip
+*.cip.bin
+*.log
+*.jsonl
+before.json
+after.json
+removal-result.json
+.env
+.env.*
+__pycache__/

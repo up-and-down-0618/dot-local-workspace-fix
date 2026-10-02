@@ -1,0 +1,22 @@
+name: PowerShell safety checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  policy-rules:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        shell: [powershell, pwsh]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test refusal cases and parse repair script
+        shell: ${{ matrix.shell }}
+        run: ./tests/Test-PolicyRules.ps1
+      - name: Test rules in a constrained child session
+        shell: ${{ matrix.shell }}
+        run: |
+          $ExecutionContext.SessionState.LanguageMode = 'ConstrainedLanguage'
+          ./tests/Test-PolicyRules.ps1 -SkipParserCheck
